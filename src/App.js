@@ -5,7 +5,11 @@ import data from "./stays.json";
 import { useState } from "react";
 
 function App() {
+
+
   const [selected, setSelected] = useState("");
+  ;
+
   React.useEffect(() => {
     console.log(data);
   }, []);
@@ -31,9 +35,11 @@ function App() {
           </svg>
         </div>
         <div>
-          <select onChange={(e) => {
-            setSelected(e.target.value)
-          }}>
+          <select
+            onChange={(e) => {
+              setSelected(e.target.value);
+            }}
+          >
             <option value="">All stays</option>
             <option value="Helsinki">Helsinki, Finland</option>
             <option value="Turku">Turku, Finland</option>
@@ -41,12 +47,12 @@ function App() {
             <option value="Oulu">Oulu, Finland</option>
           </select>
           <input
-        className="searchbar"
-        type="text"
-        placeholder="Search for Movies or TV Series"
-        value={selected}
-        onChange={(e) => setSelected(e.target.value)}
-      />
+            className="searchbar"
+            type="text"
+            placeholder="Search for Movies or TV Series"
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+          />
         </div>
       </div>
       <div className="App-title-rooms">
@@ -54,33 +60,37 @@ function App() {
         <h3 className="rooms">12+</h3>
       </div>
       <div className="content">
-        {data.filter((place) => {
-            const { name, city, country, price } = place;
+        {data
+          .filter((place) => {
             if (selected === "") {
-              return place
-            } else if ( place.city.toLowerCase().includes(selected.toLocaleLowerCase())) {
-              return place
+              return place;
+            } else if (
+              place.city.toLowerCase().includes(selected.toLocaleLowerCase())
+            ) {
+              return place;
             }
-          }).map((stay) => {
-          return (
-            <div key={stay.title}>
-              <div className="card-info">
-                <div>
-
-                  <img className="imgs" src={stay.photo} alt={stay.title} />
-                </div>
-                <div className="card-sub-info">
-                  <h4 className="type">{stay.type}</h4>
-                  <h5 className="beds">{stay.beds} {stay.beds > 0 ? " beds" : " "}</h5>
-                  <h5 className="rating">{stay.rating}</h5>
-                </div>
-                <div>
-                  <h3 className='card-title'>{stay.title}</h3>
+          })
+          .map((stay) => {
+            return (
+              <div key={stay.title}>
+                <div className="card-info">
+                  <div>
+                    <img className="imgs" src={stay.photo} alt={stay.title} />
+                  </div>
+                  <div className="card-sub-info">
+                    <h4 className="type">{stay.type}</h4>
+                    <h5 className="beds">
+                      {stay.beds} {stay.beds > 0 ? " beds" : " "}
+                    </h5>
+                    <h5 className="rating">{stay.rating}</h5>
+                  </div>
+                  <div>
+                    <h3 className="card-title">{stay.title}</h3>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
